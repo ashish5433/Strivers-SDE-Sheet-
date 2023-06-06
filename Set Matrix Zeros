@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+
+void setZeros(vector<vector<int>> &v)
+{
+	
+	int n=v.size();
+	int m=v[0].size();
+	vector<pair<int,int>> z;
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			if(v[i][j]==0){
+				z.push_back({i,j});
+			}
+		}
+	}
+	for(auto it:z){
+		for(int i=0;i<n;i++){
+			v[i][it.second]=0;
+		}
+		for(int i=0;i<m;i++)v[it.first][i]=0;
+		
+	}
+
+}
