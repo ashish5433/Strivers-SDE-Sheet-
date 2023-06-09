@@ -1,0 +1,22 @@
+#include <bits/stdc++.h> 
+int maximumProfit(vector<int> &v){
+    // Write your code here.
+
+
+    int ans=0,n=v.size();
+    vector<int> maxv;
+    maxv.push_back(v[n-1]);
+    int k=v[n-1];
+    for(int i=n-2;i >=0 ;i--){
+       k=max(v[i],k);
+       maxv.push_back(k);   // 4 4 4 4 
+    }
+    // for(auto i:maxv)cout<<i<<" ";
+    cout<<endl;
+    for(int i=0;i<n-1;i++){
+        // cout<<maxv[n-i]<<" "<<v[i]<<endl;
+       int q=maxv[n-i-1]-v[i];
+       ans=max(ans,q);
+    }
+    return ans;
+}
