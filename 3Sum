@@ -1,0 +1,33 @@
+#include <bits/stdc++.h> 
+#define long long int ll;
+vector<vector<int>> findTriplets(vector<int>arr, int n, int k1) {
+	vector<vector<int>> ans;
+	sort(arr.begin(),arr.end());
+	for(int i=0;i<n;i++){
+		if(i>0 && arr[i]==arr[i-1])continue ;  // So that no Repeated triplet is generated
+		int j=i+1;
+		int k=n-1;
+		while(j<k){
+			int s=arr[i]+arr[j]+arr[k];
+			
+			if(s>k1){
+				k--;
+			}
+			else if(s<k1)j++;
+			else if(s==k1) {
+                          vector<int> v = { arr[i], arr[j],arr[k] };
+                          ans.push_back(v);
+						  j++;
+						 
+                        }
+		}
+		
+	}
+	set<vector<int>> s;
+	for(auto i:ans)s.insert(i);
+	vector<vector<int>> ans1;
+	for(auto i:s)ans1.push_back(i);
+	
+	return ans1;
+	
+}
