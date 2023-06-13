@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+#define ll long long int
+int LongestSubsetWithZeroSum(vector < int > a) {
+
+ ll n=a.size(),s=a[0],ans=0;
+ vector<ll> v;
+ v.push_back(a[0]);
+ for(int i=1;i<n;i++){
+   s+=a[i];
+   v.push_back(s);
+ }
+ 
+ map<ll,pair<ll,ll>> m;
+ for(ll i=0;i<n;i++){
+   if(v[i]==0)ans=max(ans,i+1);
+   if(m[v[i]].first==1){
+     ll c=i-m[v[i]].second;
+     ans=max(c,ans);
+   } else {
+     m[v[i]].first++;
+     m[v[i]].second = i;
+   }
+ }
+ return ans;
+}
