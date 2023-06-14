@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+
+vector<int> majorityElementII(vector<int> &a)
+{
+    // Write your code here.
+    int n=a.size();
+    int k=n/3;
+    map<int,int> m;
+    vector<int> ans;
+    for(int i=0;i<n;i++)m[a[i]]++;
+
+    for(int i=0;i<n;i++){
+        if(m[a[i]]>k){
+            ans.push_back(a[i]);
+            m[a[i]]=0;
+        }
+    }
+// ans=unique(ans.begin(),ans.end());
+return ans;
+
+}
