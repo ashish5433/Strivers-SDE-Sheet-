@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+void allsub(int strt , int target , vector<int> &arr, vector<int> &temp, vector<vector<int>> &answer){
+
+	
+	if(target == 0){
+		answer.push_back(temp);							
+		return;  					
+	}
+
+        for (int i = strt; i < arr.size(); i++) {
+		
+          if (i > strt and arr[i] == arr[i - 1]) {
+            continue; 
+          }
+		
+          if (arr[i] > target) {
+            break;
+          }
+          temp.push_back(arr[i]);
+
+          allsub(i + 1, target-arr[i], arr, temp, answer);
+		 
+		  temp.pop_back(); 
+        }
+}
+vector<vector<int>> combinationSum2(vector<int> &arr, int n, int target)
+{
+	// Write your code here.
+
+	sort(arr.begin(), arr.end());
+	vector<int> temp;
+	vector<vector<int>> answer;
+	allsub(0, target, arr, temp, answer);
+	
+	return answer;
+}
