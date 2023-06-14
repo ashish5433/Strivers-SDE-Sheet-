@@ -1,0 +1,26 @@
+#include <bits/stdc++.h> 
+
+void allsub(int n,int strt,vector<int> &num,vector<int> &ans,vector<int> &temp){
+        if(strt==n){
+            int s=0;
+            for(auto i:temp)s+=i;
+            ans.push_back(s);
+            return;
+        }
+
+        temp.push_back(num[strt]);
+        allsub(n,strt+1,num,ans,temp);
+        temp.pop_back();
+        allsub(n,strt+1,num,ans,temp);
+
+}
+vector<int> subsetSum(vector<int> &num)
+{
+   
+   vector<int> ans,temp;
+   int n=num.size();
+
+   allsub(n,0,num,ans,temp);
+    sort(ans.begin(),ans.end());
+   return ans;
+}
