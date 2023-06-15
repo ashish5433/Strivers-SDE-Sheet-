@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+int getMedian(vector<vector<int>> &mt)
+{
+    // Write your code here.
+    vector<int> v;
+    int n=mt.size();;
+    int m=mt[0].size();
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            v.push_back(mt[i][j]);
+        }
+    }
+    sort(v.begin(),v.end());
+    int k=m*n;
+    k/=2;
+    return v[k];
+}
