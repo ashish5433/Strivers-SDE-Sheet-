@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+vector<int> nextSmallerElement(vector<int> &arr, int n)
+{
+    // Write your code here.
+    stack<int> s;
+    s.push(arr[n-1]);
+    vector<int> ans;
+    ans.push_back(-1);
+    for(int i=n-2;i>=0;i--){
+        if(s.top()<arr[i]){
+            ans.push_back(s.top());
+            s.push(arr[i]);
+        }
+        else {
+            while(!s.empty()){
+                if(s.top()<arr[i]){
+                    ans.push_back(s.top());
+                    s.push(arr[i]);
+                    break;
+                }
+                else {
+                    s.pop();
+                }
+            }
+            if (s.empty()) {
+                s.push(arr[i]);
+              ans.push_back(-1);
+            }
+        }
+    }
+    reverse(ans.begin(),ans.end());
+
+    return ans;
+}
