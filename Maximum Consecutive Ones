@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+int longestSubSeg(vector<int> &arr , int n, int k){
+ int z=0,m=k;
+
+ for(auto i:arr)if(i==0)z++;
+priority_queue<int,vector<int>,greater<int>> pq;
+ if(z==0)
+ {
+     int c=0,a=0;
+     for(int i=0;i<n;i++){
+         if(arr[i]==1)c++;
+        else {
+            a=max(a,c);
+            c=0;
+        }
+     }
+     return a;
+ }
+ int j=0,i=0,cnt=0,ans=0;
+ while(j<n){
+     if(arr[j]==1)cnt++;
+     else {
+         if(m>0 && m<=k){
+            pq.push(j);
+             m--;
+             cnt++;
+         }
+         else  {
+             if(pq.empty()){
+                 ans=max(ans,cnt);
+                 cnt=0;
+             }
+             else{
+             ans=max(cnt,ans);
+             i=pq.top()+1;
+             cnt=j-i+1;
+             pq.pop();
+             
+            //  m=1;
+             
+             pq.push(j);
+             }
+         }
+
+     }
+     j++;
+ }
+ ans=max(ans,cnt);
+return ans;
+
+}
