@@ -2,13 +2,13 @@ int calculateMinPatforms(int at[], int dt[], int n) {
     sort(at, at+n);
     sort(dt, dt+n);
 
-    int plats=1, totalDeparted=0;
+    int p, td=0;
 
     for(int i=1; i<n; i++){
-        if(at[i]>dt[totalDeparted]) {
-            totalDeparted++;
+        if(at[i]>dt[td]) {
+            td++;
         }
-        else plats++;
+        else p++;
     }
-    return plats;
+    return p;
 }
