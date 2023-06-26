@@ -1,0 +1,36 @@
+#include <bits/stdc++.h> 
+
+void allsub(int strt,int n,vector<int> &arr,vector<vector<int>> &ans
+,vector<int> temp,set<vector<int>> &st){
+if(strt>=n){
+    int k=st.size();
+    sort(temp.begin(),temp.end());
+    st.insert(temp);
+    
+    return;
+}
+
+
+
+temp.push_back(arr[strt]);
+allsub(strt+1,n,arr,ans,temp,st);
+temp.pop_back();
+allsub(strt+1,n,arr,ans,temp,st);
+
+
+
+
+}
+vector<vector<int>> uniqueSubsets(int n, vector<int> &arr)
+{
+    // Write your code here.
+    vector<int> temp;
+    vector<vector<int>> ans,a;
+    set<vector<int>> st;
+   allsub(0,n,arr,ans,temp,st);
+    // sort(ans.begin(),ans.end());
+    for(auto i:st)a.push_back(i);
+   return a;
+
+
+}
