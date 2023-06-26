@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+void allsub(int strt,int n,int k,vector<int> &arr,vector<vector<int>> &ans,
+vector<int> &temp){
+    if(strt>=n){
+
+        int sum=0;
+        for(auto i:temp){
+            sum+=i;
+        }
+        if(sum==k)ans.push_back(temp);
+        return;
+    }
+
+
+    temp.push_back(arr[strt]);
+    allsub(strt+1,n,k,arr,ans,temp);
+    temp.pop_back();
+    allsub(strt+1,n,k,arr,ans,temp);
+}
+vector<vector<int>> findSubsetsThatSumToK(vector<int> arr, int n, int k)
+{
+    // Write your code here.
+
+    vector<vector<int>> ans;
+    vector<int> temp;
+    allsub(0,n,k,arr,ans,temp);
+
+    return ans;
+
+
+}
