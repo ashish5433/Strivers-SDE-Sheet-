@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+
+void allsub(int strt,int n,vector<string> &ans,string s){
+    if(strt>=n){
+        ans.push_back(s);
+        return;
+    }
+
+    for(int i=strt;i<n;i++){
+        swap(s[strt],s[i]);
+        allsub(strt+1,n,ans,s);
+        swap(s[strt],s[i]);
+    }
+    
+    
+}
+vector<string> findPermutations(string &s) {
+    // Write your code here.
+
+    vector<string> ans;
+    int n = s.size();
+    allsub(0,n,ans,s);
+
+    return ans;
+}
