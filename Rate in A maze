@@ -1,0 +1,51 @@
+#include <bits/stdc++.h> 
+
+void findpath(int row,int col,vector<vector<int> > v,vector<vector<int> > &temp
+,vector<vector<int> > &ans,vector<vector<int>> &vis){
+  int n=v.size();
+  if(row==0 && col==0){
+    vector<int> q;
+    for(int i=0;i<n;i++){
+     for(int j=0;j<n;j++){
+       q.push_back(temp[i][j]);
+      
+     }
+     
+    }
+    ans.push_back(q);
+   
+  }
+
+  int arr[]={0,1,0,-1};
+  int arc[]={1,0,-1,0};
+  for(int i=0;i<4;i++){
+    int nrow=row+arr[i];
+    int ncol=col+arc[i];
+    
+    if(nrow>=0 && ncol>=0 && nrow<n && ncol<n){
+      if(v[nrow][ncol] && !vis[nrow][ncol]){
+        temp[nrow][ncol]=1;
+        vis[nrow][ncol]=1;
+        findpath(nrow,ncol,v,temp,ans,vis);
+        temp[nrow][ncol]=0;
+        vis[nrow][ncol]=0;
+      }
+    }
+  }
+
+  
+}
+vector<vector<int> > ratInAMaze(vector<vector<int> > &v, int n){
+
+   vector<vector<int>> temp(n,vector<int>(n,0));
+   vector<vector<int>> vis(n,vector<int>(n,0));
+   vector<vector<int>> ans;
+   if(v[n-1][n-1]==0)return ans;
+   temp[n-1][n-1]=1;
+   vis[n-1][n-1]=1;
+   findpath(n-1,n-1,v,temp,ans,vis);
+
+  return ans;
+  
+  
+}
