@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+
+string reverseString(string &str){
+	// Write your code here.	
+	string ans="",temp="";
+	stack<string> v;
+	int n=str.size();
+	for(int i=0;i<n;i++){
+          if (isspace(str[i]) && temp.empty()) {
+			  continue;
+          } else if (isspace(str[i])) {
+
+            v.push(temp);
+            temp.clear();
+          } else {
+            temp += str[i];
+          }
+        }
+	if(!temp.empty()){
+      v.push(temp);
+	}	
+	
+	
+
+	while(!v.empty()){
+		ans+=v.top();
+		v.pop();
+		if(!v.empty()){
+			ans+=" ";
+		}
+	}
+	return ans;
+}
