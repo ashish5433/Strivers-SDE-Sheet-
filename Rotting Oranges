@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+
+int bfs(int n,int m, queue<pair<pair<int,int>,int> > &q,vector<vector<int>>& vis,
+vector<vector<int>>& grid){
+int ans=0;
+
+ int c=0;
+          int z;
+            while(!q.empty()){
+                int x=q.front().first.first;
+                int y=q.front().first.second;
+                 z=q.front().second;
+                // cout<<x<<" "<<y<<" "<<z<<endl;
+                vis[x][y]=2;
+                q.pop();
+                for(int i=-1;i<2;i++){
+                    for(int j=-1;j<2;j++){
+                        int nr=x+i;
+                        int nc=y+j;
+                        if(nr>=0 && nr<n && nc>=0 && nc<m && grid[nr][nc]==1 && (i==0 || j==0) && vis[nr][nc]==0 ){
+                            vis[nr][nc]=2;
+                            // z=;
+                            q.push({{nr, nc}, z + 1});
+                            c = max(c, q.front().second);
+                            // cout<<c<<endl;
+                        }
+                    }
+                }
+            }
+
+            return max(c, z);
+}
+
+int minTimeToRot(vector<vector<int>>& grid, int n, int m)
+{
+    // Write your code here. 
+
+    int o=0;
+    vector<vector<int>> vis(n,vector<int>(m,0));
+     queue<pair<pair<int,int>,int> > q;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(grid[i][j]==2){
+                 q.push({{i,j},0});
+            }
+            if(grid[i][j]==1)o++;
+        }
+    }
+    if(o==0)return 0;
+    int ans=bfs(n,m,q,vis,grid);
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(grid[i][j]==1 && vis[i][j]==0)return -1;
+        }
+    }
+    return ans;
+    
+}
