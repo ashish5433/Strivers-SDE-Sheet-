@@ -1,0 +1,48 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+bool csa(TreeNode<int> *root,int x,vector<int> &a){
+    if(root==NULL)return 0;
+
+    a.push_back(root->data);
+
+    if(root->data == x)return 1;
+    if(csa(root->left,x,a))return 1;
+    if(csa(root->right,x,a))return 1;
+
+    a.pop_back();
+    return 0;
+
+}
+int lowestCommonAncestor(TreeNode<int> *root, int x, int y)
+{
+	//    Write your code here
+    vector<int> a1,a2;
+    csa(root,x,a1);
+    csa(root,y,a2);
+    reverse(a1.begin(),a1.end());
+    reverse(a2.begin(),a2.end());
+    for(int i=0;i<a1.size();i++){
+        for(int j=0;j<a2.size();j++){
+            if(a1[i]==a2[j])return a1[i];
+        }
+    }
+
+}
