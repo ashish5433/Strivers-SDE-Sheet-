@@ -1,0 +1,83 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the Binary Tree node structure:
+    
+    template <typename T>
+    class TreeNode {
+        public :
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~TreeNode() {
+            if(left)
+                delete left;
+            if(right)
+                delete right;
+        }
+    };
+
+************************************************************/
+void solveleft(TreeNode<int>* root,vector<int>& lf){
+    if(root==NULL)return;
+
+    if(root->left || root->right){
+        lf.push_back(root->data);
+    }
+    if(root->left){
+        solveleft(root->left,lf);
+    }
+    else if(root->right) {
+        solveleft(root->right,lf);
+    }
+
+}
+void solveleaf(TreeNode<int>* root,vector<int> &lyf){
+    if(root==NULL)return ;
+
+    solveleaf(root->left,lyf);
+    if(root->left==NULL && !root->right){
+        lyf.push_back(root->data);
+    }
+    solveleaf(root->right,lyf);
+}
+
+void solveryt(TreeNode<int> *root,vector<int>& ryt){
+    if(root==NULL)return;
+
+    if(root->left || root->right){
+        ryt.push_back(root->data);
+    }
+
+    if(root->right){
+        solveryt(root->right,ryt);
+    }
+    else if(root->left){
+        solveryt(root->left,ryt);
+    }
+}
+vector<int> traverseBoundary(TreeNode<int>* root){
+    // Write your code here.
+    vector<int> ans;
+    if(root==NULL)return ans;
+    ans.push_back(root->data);
+    vector<int> lf,lyf,ryt;
+    solveleft(root->left,lf);
+    solveleaf(root->left,lyf);
+    solveleaf(root->right, lyf);
+    solveryt(root->right,ryt);
+    reverse(ryt.begin(),ryt.end());
+    
+   
+    for(auto i:lf)ans.push_back(i);
+    for(auto i:lyf)ans.push_back(i);
+    for(auto i:ryt)ans.push_back(i);
+    return ans;
+}
