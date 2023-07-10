@@ -1,0 +1,52 @@
+/*****************************************************
+
+    Following is the Binary Tree node structure:
+    
+    class BinaryTreeNode {
+        public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+        
+        ~BinaryTreeNode() {
+            if(left) 
+                delete left;
+            if(right) 
+                delete right;
+        }
+    };
+
+******************************************************/
+#include<bits/stdc++.h>
+void solve(BinaryTreeNode<int>* lft,BinaryTreeNode<int>* ryt,vector<int> &ans){
+
+    if(lft==NULL || ryt==NULL){
+        if(lft!=ryt)ans.push_back(0);
+        return;
+    }
+    if(lft->data!=ryt->data){
+        ans.push_back(0);
+    }
+    solve(lft->left,ryt->right,ans);
+    solve(lft->right,ryt->left,ans);
+
+}
+
+bool isSymmetric(BinaryTreeNode<int>* root)
+{
+    // Write your code here.
+    if(!root)return 1;
+    vector<int> ans; 
+    solve(root->left,root->right,ans);
+
+    
+   if(ans.size()==0)return 1;
+   return 0;
+   
+}
