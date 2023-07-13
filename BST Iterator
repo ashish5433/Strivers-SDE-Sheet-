@@ -1,0 +1,70 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+
+class BSTiterator
+{
+    public :
+    vector<int> v;
+    int k=0;
+    public:
+     void solve(TreeNode<int> * root){
+        if(root==NULL)return ;
+
+        solve(root->left);
+        v.push_back(root->data);
+        solve(root->right);
+    }
+    public:
+    BSTiterator(TreeNode<int> *root)
+    {
+        
+        solve(root);
+
+    }
+   
+    int next()
+    {
+        int s=k-1;
+        int ans=v[s];
+        return ans;
+    }
+
+    bool hasNext()
+    {
+        // write your code here
+        if(k<v.size()){
+            k++;
+            return true;
+            
+        }
+        else return 0;
+    }
+};
+
+
+/*
+    Your BSTIterator object will be instantiated and called as such:
+    BSTIterator iterator(root);
+    while(iterator.hasNext())
+    {
+       print(iterator.next());
+    }
+*/
