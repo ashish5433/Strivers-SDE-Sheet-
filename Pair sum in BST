@@ -39,15 +39,20 @@ bool pairSumBst(BinaryTreeNode<int> *root, int k)
 
     solve(root,v);
 
-    map<int,int> m;
-    for(auto i:v)m[i]++;
-
-    for(auto i:v){
-
-        int lf=k-i;
-        if(m[lf])return 1;
-    }
+   
     
+
+   
+   
+    int strt=0,ls=v.size()-1;
+    while(strt<ls){
+        if(k==v[strt]+v[ls])return 1;
+
+        if(k>v[strt]+v[ls]){
+            strt++;
+        }
+        else ls--;
+    }
 
     return 0;
 }
