@@ -1,0 +1,24 @@
+int floydWarshall(int n, int m, int src, int dest, vector<vector<int>> &edges) {
+    // Write your code here.
+    vector<vector<int>> v(n+1,vector<int>(n+1,1e9));
+
+    for(int i=0;i<m;i++){
+        v[edges[i][0]][edges[i][1]]=edges[i][2];
+
+    }
+    // cout<<v[2][3]<<endl;
+    int k=1;
+    while(k<n+1){
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            
+            if(i==j)v[i][j]=0;
+            else if(v[i][k]!=1e9 && v[k][j]!=1e9){
+              v[i][j] = min(v[i][j], v[i][k]+v[k][j]);
+            }
+        }
+    }
+    k++;
+    }
+    return v[src][dest];
+}
