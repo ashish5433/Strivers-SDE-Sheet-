@@ -1,0 +1,38 @@
+#include <bits/stdc++.h> 
+typedef pair<int,int> pr;
+vector<pair<pair<int, int>, int>> calculatePrimsMST(int n, int m,
+ vector<pair<pair<int, int>, int>> &g)
+{
+    // Write your code here.
+    vector<pr> adj[n+1];
+    for(auto i:g){
+        int u=i.first.first;
+        int v=i.first.second;
+        int w=i.second;
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
+    } 
+    priority_queue<pair<int,pr>,vector<pair<int,pr>>, greater<pair<int,pr>>> pq;
+    pq.push({0,{1,-1}});
+    vector<pair<pair<int, int>, int>> ans;
+    vector<int> vis(n+1,0);
+    while(!pq.empty()){
+        int u=pq.top().second.first;
+        int v=pq.top().second.second;
+        int w=pq.top().first;
+        pq.pop();
+        if(vis[u])continue;
+
+        vis[u]=1;
+        if(v!=-1){
+            ans.push_back({{u,v},w});
+        }
+        for(auto it:adj[u]){
+            if(!vis[it.first]){
+                pq.push({it.second,{it.first,u}});
+            }
+        }
+    }
+
+    return ans;
+}
