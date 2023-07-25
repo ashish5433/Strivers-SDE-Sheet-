@@ -1,0 +1,20 @@
+#include <bits/stdc++.h> 
+int atoi(string str) {
+    // Write your code here.
+    int n=str.size();
+    
+    string a="";
+    for(int i=0;i<n;i++){
+        if(int(str[i])>=65 && int(str[i])<123)continue;
+        else a+=str[i];
+    }
+    
+
+    // cout<<a<<endl;
+    int ans=stoi(a);
+   
+
+    return ans;
+    
+    
+}
