@@ -1,0 +1,40 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+        
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+TreeNode<int>* bst(vector<int> &v,int s,int e){
+
+    int mid=s+(e-s)/2;
+     if(s>e)return  NULL;
+    TreeNode<int>* newnode=new TreeNode<int>(v[mid]);
+
+    newnode->left=bst(v,s,mid-1);
+    newnode->right=bst(v,mid+1,e);
+
+    return newnode;
+
+
+}
+TreeNode<int>* sortedArrToBST(vector<int> &arr, int n)
+{
+    // Write your code here.
+    if(arr.size()==0)return NULL;
+    return bst(arr,0,n-1);
+
+}
