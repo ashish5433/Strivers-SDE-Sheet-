@@ -1,0 +1,26 @@
+#include <bits/stdc++.h> 
+vector<int> countDistinctElements(vector<int> &arr, int k) 
+{
+    // Write your code here
+    map<int,int> m;
+    int i=0,j=0;
+    int n=arr.size();
+    vector<int> ans;
+    while(j<n){
+        if(j<k-1){
+            m[arr[j]]++;
+            j++;
+        }
+        else {
+           m[arr[j]]++;
+            ans.push_back(m.size());
+             
+            m[arr[i]]--;
+            if(m[arr[i]]==0)m.erase(arr[i]);
+            j++;
+            i++;
+        }
+    }
+   
+	return ans;
+}
