@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+
+int solve(int index,int prev_index,int* arr,int n,
+
+vector<vector<int>>&dp){
+
+    //base case
+
+    if(index<0) return 0;
+
+ 
+
+    if(dp[index][prev_index-1]!=-1) return dp[index][prev_index-1];
+
+ 
+
+    //not take(go one step ahead and pre_index would be same)
+
+    int take=0+solve(index-1,prev_index,arr,n,dp);
+
+ 
+
+    //take(with two conditions 1st is whether prev_index is -1 
+
+    //or curr element is greater then prev_index element)
+
+    int ntake=-1e9;
+
+    if(prev_index==n || arr[index]<arr[prev_index]){
+
+        //curr index becomes prev_index
+
+        ntake=1+solve(index-1,index,arr,n,dp);
+
+    }
+
+    return dp[index][prev_index-1]=max(take,ntake);
+
+}
+
+int longestIncreasingSubsequence(int arr[], int n) {
+
+    vector<vector<int>>dp(n,vector<int>(n+1,-1));
+
+  return solve(n-1, n, arr, n,dp);
+
+}
