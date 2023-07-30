@@ -1,0 +1,36 @@
+bool ispalan(string s,int i,int j){
+    while(i<=j){
+        if(s[i]!=s[j])return 0;
+        i++;
+        j--;
+
+    }
+    return 1;
+}
+
+int solve(string &s,int i,int j, vector<vector<int>> &t){
+
+if(i>=j)return 0;
+
+if(ispalan(s,i,j)){
+    return 0;
+}
+if(t[i][j]!=-1)return t[i][j];
+int mn=INT_MAX;
+for(int k=i;k<=j-1;k++){
+    int temp=solve(s,i,k,t)+solve(s,k+1,j,t)+1;
+
+    mn=min(temp,mn);
+}
+return t[i][j]=mn;
+}
+int palindromePartitioning(string str)
+{
+    // Write your code here
+    int n=str.size();
+    vector<vector<int>> t(n+1,vector<int>(n+1,-1));
+    // int ans=INT_MAX;
+     return solve(str,0,n-1,t);
+
+    //  return ans;
+}
