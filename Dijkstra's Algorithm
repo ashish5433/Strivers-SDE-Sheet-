@@ -1,37 +1,80 @@
-#include <bits/stdc++.h> 
-vector<int> dijkstra(vector<vector<int>> &vec, int v, int e, int s) {
-    // Write your code here.
-    int n=2147483647;
-    vector<int> ans(v,n);
-    ans[s]=0;
-    vector<pair<int,int>>adj[v];
-    queue<pair<int,int>> pq;
-    for(int i=0;i<vec.size();i++){
-
-        int u=vec[i][0];
-
-        int v=vec[i][1];
-
-        int wt=vec[i][2];
-
-        adj[u].push_back({v,wt});
-
-        adj[v].push_back({u,wt});
-
-    }
-    pq.push({0,0});
-    while(!pq.empty()){
-
-        int dist=pq.front().first;
-        int node=pq.front().second;
-        pq.pop();
-        for(auto it:adj[node]){
-            if(dist+it.second<ans[it.first]){
-                ans[it.first]=dist+it.second;
-                pq.push({ans[it.first],it.first});
+class Solution
+{
+	public:
+	//Function to find the shortest distance of all the vertices
+    //from the source vertex S.
+    vector <int> dijkstra(int v, vector<vector<int>> adj[], int s)
+    {
+       priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
+       
+       vector<int> ans(v,INT_MAX);
+       
+       ans[s]=0;
+       pq.push({0,s});
+       
+       while(!pq.empty()){
+           
+           int dist=pq.top().first;
+           int node=pq.top().second;
+           
+           pq.pop();
+           
+           for(auto it:adj[node]){
+               
+            // it[0]->current adjacent node
+            // it[1]->current node se adj node ka distance
+            // it[2]->present node kaun sa hai
+            int new_dist=dist+it[1];
+            int curr_dist=ans[it[0]];
+            if(new_dist<curr_dist){
+                ans[it[0]]=new_dist;
+                pq.push({new_dist,it[0]});
+                
             }
-
-        }
+           }
+           
+       }
+       return ans;
     }
-    return ans;
+};
+
+
+//{ Driver Code Starts.
+
+
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--) {
+        int V, E;
+        cin >> V >> E;
+        vector<vector<int>> adj[V];
+        int i=0;
+        while (i++<E) {
+            int u, v, w;
+            cin >> u >> v >> w;
+            vector<int> t1,t2;
+            t1.push_back(v);
+            t1.push_back(w);
+            adj[u].push_back(t1);
+            t2.push_back(u);
+            t2.push_back(w);
+            adj[v].push_back(t2);
+        }
+        int S;
+        cin>>S;
+        
+        Solution obj;
+    	vector<int> res = obj.dijkstra(V, adj, S);
+    	
+    	for(int i=0; i<V; i++)
+    	    cout<<res[i]<<" ";
+    	cout<<endl;
+    }
+
+    return 0;
 }
+
+
+// } Driver Code Ends
