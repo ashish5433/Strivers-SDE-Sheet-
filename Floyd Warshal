@@ -1,24 +1,63 @@
-int floydWarshall(int n, int m, int src, int dest, vector<vector<int>> &edges) {
-    // Write your code here.
-    vector<vector<int>> v(n+1,vector<int>(n+1,1e9));
+class Solution {
+  public:
+	void shortest_distance(vector<vector<int>>&matrix){
+	    int n=matrix.size();
+	    int m=1e8;
+	    for(int i=0;i<n;i++){
+	        for(int j=0;j<n;j++){
+	            
+	            if(matrix[i][j]==-1)matrix[i][j]=m;
+	            
+	            if(i==j)matrix[i][j]=0;
+	            
+	        }
+	    }
+	    
+	    
+	    for(int k=0;k<n;k++){
+	        
+	        for(int i=0;i<n;i++){
+	            for(int j=0;j<n;j++){
+	                
+	                matrix[i][j]=min(matrix[i][j],matrix[i][k]+matrix[k][j]);
+	            }
+	        }
+	    }
+	    
+	    
+	    for(int i=0;i<n;i++){
+	        for(int j=0;j<n;j++){
+	            
+	            if(matrix[i][j]==1e8)matrix[i][j]=-1;
+	        }
+	    }
+	    
+	    return ;
+	}
+};
 
-    for(int i=0;i<m;i++){
-        v[edges[i][0]][edges[i][1]]=edges[i][2];
-
-    }
-    // cout<<v[2][3]<<endl;
-    int k=1;
-    while(k<n+1){
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=n;j++){
-            
-            if(i==j)v[i][j]=0;
-            else if(v[i][k]!=1e9 && v[k][j]!=1e9){
-              v[i][j] = min(v[i][j], v[i][k]+v[k][j]);
-            }
-        }
-    }
-    k++;
-    }
-    return v[src][dest];
+//{ Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int n;
+		cin >> n;
+		vector<vector<int>>matrix(n, vector<int>(n, -1));
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < n; j++){
+				cin >> matrix[i][j];
+			}
+		}
+		Solution obj;
+		obj.shortest_distance(matrix);
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < n; j++){
+				cout << matrix[i][j] << " ";
+			}
+			cout << "\n";
+		}
+	}
+	return 0;
 }
+// } Driver Code Ends
